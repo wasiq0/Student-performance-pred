@@ -18,10 +18,12 @@ st.set_page_config(
 # -----------------------------------------------------------------------------
 # Config
 # -----------------------------------------------------------------------------
-SCHEMA_PATH = Path("/app/data/data_schema.json")
+SCHEMA_PATH = Path(__file__).parent / "data_schema.json"
 
 API_BASE_URL = os.getenv("API_URL", "http://localhost:8000")
 PREDICT_ENDPOINT = f"{API_BASE_URL}/predict"
+
+
 
 # -----------------------------------------------------------------------------
 # Load schema

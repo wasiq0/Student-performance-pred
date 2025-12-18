@@ -1,0 +1,130 @@
+{
+  "numerical": {
+    "age": {
+      "min": 17.0,
+      "max": 24.0,
+      "mean": 20.4733,
+      "median": 20.0
+    },
+    "sleep_hours": {
+      "min": 4.1,
+      "max": 9.9,
+      "mean": 7.008560000000001,
+      "median": 7.0
+    },
+    "class_attendance": {
+      "min": 40.6,
+      "max": 99.4,
+      "mean": 70.01736499999998,
+      "median": 69.9
+    },
+    "study_hours": {
+      "min": 0.08,
+      "max": 7.91,
+      "mean": 4.0076035,
+      "median": 4.04
+    },
+    "exam_score": {
+      "min": 19.599,
+      "max": 100.0,
+      "mean": 62.513225,
+      "median": 62.6
+    }
+  },
+  "categorical": {
+    "gender": {
+      "unique_values": [
+        "other",
+        "male",
+        "female"
+      ],
+      "value_counts": {
+        "other": 6726,
+        "male": 6695,
+        "female": 6579
+      }
+    },
+    "internet_access": {
+      "unique_values": [
+        "yes",
+        "no"
+      ],
+      "value_counts": {
+        "yes": 16988,
+        "no": 3012
+      }
+    },
+    "sleep_quality": {
+      "unique_values": [
+        "average",
+        "poor",
+        "good"
+      ],
+      "value_counts": {
+        "average": 6694,
+        "poor": 6687,
+        "good": 6619
+      }
+    },
+    "course": {
+      "unique_values": [
+        "bca",
+        "ba",
+        "b.sc",
+        "b.com",
+        "bba",
+        "diploma",
+        "b.tech"
+      ],
+      "value_counts": {
+        "bca": 2902,
+        "ba": 2896,
+        "b.sc": 2878,
+        "b.com": 2864,
+        "bba": 2836,
+        "diploma": 2826,
+        "b.tech": 2798
+      }
+    },
+    "study_method": {
+      "unique_values": [
+        "self-study",
+        "online videos",
+        "coaching",
+        "group study",
+        "mixed"
+      ],
+      "value_counts": {
+        "self-study": 4079,
+        "online videos": 4069,
+        "coaching": 4036,
+        "group study": 3922,
+        "mixed": 3894
+      }
+    },
+    "facility_rating": {
+      "unique_values": [
+        "medium",
+        "low",
+        "high"
+      ],
+      "value_counts": {
+        "medium": 6760,
+        "low": 6638,
+        "high": 6602
+      }
+    },
+    "exam_difficulty": {
+      "unique_values": [
+        "moderate",
+        "easy",
+        "hard"
+      ],
+      "value_counts": {
+        "moderate": 9878,
+        "easy": 6141,
+        "hard": 3981
+      }
+    }
+  }
+}

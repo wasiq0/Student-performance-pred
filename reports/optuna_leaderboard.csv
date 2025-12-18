@@ -1,0 +1,9 @@
+key,preprocess,model,cv_f1_macro,test_f1_macro,best_params
+standard_xgboost_optuna,standard,xgboost,1.0,1.0,"{'n_estimators': 400, 'learning_rate': 0.13962563737015762, 'max_depth': 10, 'subsample': 0.9579309401710595, 'colsample_bytree': 0.8391599915244341}"
+minmax_xgboost_optuna,minmax,xgboost,1.0,1.0,"{'n_estimators': 400, 'learning_rate': 0.022587177280197233, 'max_depth': 3, 'subsample': 0.7957811041110252, 'colsample_bytree': 0.9942601816442402}"
+minmax_histgb_optuna,minmax,histgb,0.9981019577417868,0.9981018328701805,"{'learning_rate': 0.02634777514406047, 'max_depth': 2, 'max_leaf_nodes': 44}"
+standard_histgb_optuna,standard,histgb,0.9981019577417868,0.9981018328701805,"{'learning_rate': 0.05388108577817234, 'max_depth': 2, 'max_leaf_nodes': 59}"
+standard_logreg_optuna,standard,logreg,0.9927605352553899,0.989640538456558,{'C': 9.395445020858189}
+standard_ridgeclf_optuna,standard,ridgeclf,0.9847956618580382,0.9875786041456409,{'alpha': 0.011527987128232402}
+minmax_ridgeclf_optuna,minmax,ridgeclf,0.9847956618580382,0.9875786041456409,{'alpha': 0.07400385759087375}
+minmax_logreg_optuna,minmax,logreg,0.9831484850701392,0.9813065418691402,{'C': 9.386832220365555}

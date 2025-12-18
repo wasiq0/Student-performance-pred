@@ -1,0 +1,46 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: housing-api
+    expose:
+      - "8000"
+    volumes:
+      # Mount models so API can load joblib/pkl files
+      - ./api/models:/app/models:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - housing-network
+    restart: unless-stopped
+
+  streamlit:
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+    container_name: housing-streamlit
+    ports:
+      # HOST : CONTAINER
+      - "8502:8501"
+    volumes:
+      # Schema or other read-only data
+      - ./data:/app/data:ro
+    environment:
+      - API_URL=http://api:8000
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - housing-network
+    restart: unless-stopped
+
+networks:
+  housing-network:
+    driver: bridge

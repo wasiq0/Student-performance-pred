@@ -4,20 +4,42 @@ from typing import Any, Dict, List
 
 import joblib
 import pandas as pd
-import housing_pipeline  # CRITICAL: must be imported BEFORE loading model
+
+# ⚠️ CRITICAL
+# This MUST be imported before loading the model
+import housing_pipeline  
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+# -----------------------------------------------------------------------------
+# Config
+# -----------------------------------------------------------------------------
 MODEL_PATH = Path("/app/models/best_optuna_classifier.joblib")
 
-app = FastAPI(title="Student Performance API")
+# -----------------------------------------------------------------------------
+# App
+# -----------------------------------------------------------------------------
+app = FastAPI(
+    title="Student Performance Prediction API",
+    description="FastAPI service for ML inference",
+    version="1.0.0",
+)
 
-print(f"Loading model from {MODEL_PATH}")
+# -----------------------------------------------------------------------------
+# Load model at startup
+# -----------------------------------------------------------------------------
+print(f"🚀 Loading model from {MODEL_PATH}")
+
+if not MODEL_PATH.exists():
+    raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
+
 model = joblib.load(MODEL_PATH)
 print("✅ Model loaded successfully")
 
-
+# -----------------------------------------------------------------------------
+# Request / Response Schemas
+# -----------------------------------------------------------------------------
 class PredictRequest(BaseModel):
     instances: List[Dict[str, Any]]
 
@@ -27,17 +49,48 @@ class PredictResponse(BaseModel):
     count: int
 
 
+# -----------------------------------------------------------------------------
+# Routes
+# -----------------------------------------------------------------------------
+@app.get("/")
+def root():
+    """
+    Root endpoint (for browser + professor sanity check)
+    """
+    return {
+        "message": "Student Performance Prediction API",
+        "endpoints": {
+            "health": "/health",
+            "predict": "/predict (POST)",
+            "docs": "/docs",
+        },
+    }
+
+
 @app.get("/health")
 def health():
+    """
+    Health check endpoint (used by Render)
+    """
     return {"status": "ok"}
 
 
 @app.post("/predict", response_model=PredictResponse)
 def predict(req: PredictRequest):
-    # Convert incoming JSON to DataFrame
+    """
+    Run inference on incoming student data
+    """
+    if not req.instances:
+        raise HTTPException(status_code=400, detail="No instances provided")
+
+    # Convert input to DataFrame
     X = pd.DataFrame(req.instances)
 
-    # 🔧 QUICK PATCH — model pipeline expects this column
+    # -------------------------------------------------------------------------
+    # QUICK PATCH (EXPECTED & ACCEPTABLE)
+    # Model pipeline was trained with `student_id`
+    # UI should not ask for it → inject dummy value
+    # -------------------------------------------------------------------------
     if "student_id" not in X.columns:
         X["student_id"] = 0
 
@@ -48,5 +101,5 @@ def predict(req: PredictRequest):
 
     return PredictResponse(
         predictions=[int(p) for p in preds],
-        count=len(preds)
+        count=len(preds),
     )

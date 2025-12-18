@@ -10,9 +10,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
-
-# ✅ ADD THIS LINE
-COPY ../data /app/data
+COPY data_schema.json .
 
 EXPOSE 8501
 
